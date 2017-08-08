@@ -15,7 +15,6 @@ pull() {
         if [ $? -ne 0 ]; then
             return 1;
         fi
-        echo "$RET_STR"
         if [ "$RET_STR" = "Already up-to-date." ]; then
             return 2;
         fi
@@ -29,7 +28,7 @@ pre_doit() {
 }
 
 doit() {
-    xterm -e bash $RUN_DIR/main.sh &
+    xterm -e bash $RUN_DIR/exe.sh &
 }
 
 post_doit() {
