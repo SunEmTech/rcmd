@@ -6,15 +6,17 @@ GIT_PATH=http://github.com/SunEmTech/rcmd
 
 pull() {
 
-    if ! [ -f $PULL_DIR/main.sh ]; then
+    if ! [ -f $PULL_DIR/rrun.sh ]; then
+        echo "comig here"
         git clone $GIT_PATH $PULL_DIR
         return $?
     else
         RET_STR=`git -C $PULL_DIR pull`
-        if [ $? -ne 0]; then
+        if [ $? -ne 0 ]; then
             return 1;
         fi
-        if [ $RET_STR = "Already up-to-date." ]; then
+        echo "$RET_STR"
+        if [ "$RET_STR" = "Already up-to-date." ]; then
             return 2;
         fi
     fi 
@@ -23,7 +25,7 @@ pull() {
 
 pre_doit() {
     mkdir -p $RUN_DIR
-    cp $PULL_DIR/* $RUN_DIR
+    cp -r $PULL_DIR/*.sh $RUN_DIR
 }
 
 doit() {
@@ -48,7 +50,7 @@ start() {
         pre_doit
         doit
         post_doit
-
+        sleep 3
     done
 }
 
