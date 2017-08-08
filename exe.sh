@@ -2,6 +2,7 @@
 # from here actual execution should start
 
 init() {
+    echo "Init"
 }
 
 main() {
