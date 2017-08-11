@@ -1,17 +1,19 @@
 #!/bin/bash
 # Pull and run
-PULL_DIR=$HOME/rpull
-RUN_DIR=$HOME/rrun
+SRC_DIR=$1
 GIT_PATH=http://github.com/SunEmTech/rcmd
 
+if [ -z $SRC_DIR ]; then 
+    echo "Usage: bash rrun.sh [source directory/\$PWD]"
+    exit 1
+fi
 pull() {
 
-    if ! [ -f $PULL_DIR/rrun.sh ]; then
-        echo "comig here"
-        git clone $GIT_PATH $PULL_DIR
+    if ! [ -f $SRC_DIR/rrun.sh ]; then
+        git clone $GIT_PATH $SRC_DIR
         return $?
     else
-        RET_STR=`git -C $PULL_DIR pull`
+        RET_STR=`git -C $SRC_DIR pull`
         if [ $? -ne 0 ]; then
             return 1;
         fi
@@ -22,13 +24,22 @@ pull() {
     return 0
 }
 
+get_mac() {                                                                     
+    set `ifconfig -a | grep HWaddr`                                             
+    MAC=`echo "$5" | sed -e 's/\:/\_/g'`                                        
+    echo $MAC                                                                   
+}                                                                               
+                                                                                
 pre_doit() {
-    mkdir -p $RUN_DIR
-    cp -r $PULL_DIR/*.sh $RUN_DIR
+    echo "pre_doit"
 }
 
 doit() {
-    xterm -e bash $RUN_DIR/exe.sh &
+    echo "doit"
+    MAC=`get_mac`
+    for EXE in `ls $SRC_DIR/exe*`; do
+        xterm -e bash $SRC_DIR/$EXE $SRC_DIR $MAC &
+    done
 }
 
 post_doit() {
@@ -42,17 +53,18 @@ start() {
         if [ $? -ne 0 ]; then
             echo "Wait for the internet connection: $RETRY"
             #RETRY=`expr $RETRY - 1`
-            sleep 2
+            sleep 5
             continue
         fi
         
-        pre_doit
         doit
-        post_doit
+
         sleep 3
     done
 }
 
+pre_doit
 start
+post_doit
 
 
