@@ -38,7 +38,8 @@ doit() {
     echo "doit"
     MAC=`get_mac`
     for EXE in `ls $SRC_DIR/exe*`; do
-        xterm -e bash $SRC_DIR/$EXE $SRC_DIR $MAC &
+        echo $EXE
+        xterm -e bash $EXE $SRC_DIR $MAC &
     done
 }
 
@@ -64,6 +65,7 @@ start() {
 }
 
 pre_doit
+doit
 start
 post_doit
 
