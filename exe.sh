@@ -6,6 +6,7 @@ $MY_MAC="b8_ae_ed_38_89_5d"
 
 init() {
     echo "Init"
+    shutdown -h now
 }
 
 main() {
