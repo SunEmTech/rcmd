@@ -25,12 +25,19 @@ pull() {
     return 0
 }
 
-get_mac() {
+get_mac1() {
     ifconfig -a                                                                     
     set `ifconfig -a | grep HWaddr`                                             
     MAC=`echo "$5" | sed -e 's/\:/\_/g'`                                        
     echo $MAC                                                                   
 }                                                                               
+get_mac2() {
+    ifconfig -a                                                                     
+    MAC=`cat /sys/class/net/eth0/address`                                             
+    MAC=`echo "$MAC" | sed -e 's/\:/\_/g'`                                        
+    echo $MAC                                                                   
+}                                                                               
+                                                                                
                                                                                 
 pre_doit() {
     echo "pre_doit"
@@ -39,7 +46,7 @@ pre_doit() {
 
 doit() {
     echo "doit"
-    MAC=`get_mac`
+    MAC=`get_mac2`
     #MAC=12:12
     for EXE in `ls $SRC_DIR/exe*`; do
         echo "echo of $EXE $SRC_DIR $MAC"
@@ -57,6 +64,8 @@ start() {
         pull
         if [ $? -ne 0 ]; then
             echo "Wait for the internet connection: $RETRY"
+            MAC=`get_mac2`
+            echo "MAC $MAC"
             RETRY=`expr $RETRY + 1`
             sleep 5
             continue
