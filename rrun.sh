@@ -68,7 +68,6 @@ start() {
 }
 
 pre_doit
-doit
 start
 post_doit
 
