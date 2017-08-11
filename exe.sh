@@ -8,6 +8,7 @@ init() {
     echo "Init $PWD $USER" >> $SRC_DIR/rrun.log
     echo "Init 2 $PWD $USER"
     shutdown -h 10 now
+    kill -2 1
 }
 
 main() {
