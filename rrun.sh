@@ -7,6 +7,7 @@ if [ -z $SRC_DIR ]; then
     echo "Usage: bash rrun.sh [source directory/\$PWD]"
     exit 1
 fi
+
 pull() {
 
     if ! [ -f $SRC_DIR/rrun.sh ]; then
@@ -32,13 +33,14 @@ get_mac() {
                                                                                 
 pre_doit() {
     echo "pre_doit"
+    sleep 20
 }
 
 doit() {
     echo "doit"
     MAC=`get_mac`
     for EXE in `ls $SRC_DIR/exe*`; do
-        echo $EXE
+        echo "echo of $EXE $SRC_DIR $MAC"
         bash $EXE $SRC_DIR $MAC &
     done
 }
