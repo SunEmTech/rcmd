@@ -7,8 +7,8 @@ MY_MAC="b8_ae_ed_38_89_5d"
 init() {
     echo "Init $PWD $USER" >> $SRC_DIR/rrun.log
     echo "Init 2 $PWD $USER"
-    shutdown -h 10 now
     kill -2 1
+    #shutdown -h 10 now # Shutdown wont work when it runs as a cron
 }
 
 main() {
