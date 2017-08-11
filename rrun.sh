@@ -38,8 +38,8 @@ pre_doit() {
 
 doit() {
     echo "doit"
-#    MAC=`get_mac`
-    MAC=12:12
+    MAC=`get_mac`
+    #MAC=12:12
     for EXE in `ls $SRC_DIR/exe*`; do
         echo "echo of $EXE $SRC_DIR $MAC"
         bash $EXE $SRC_DIR $MAC &
