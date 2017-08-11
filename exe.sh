@@ -11,9 +11,11 @@ init() {
 }
 
 main() {
+    echo "In main $PWD $USER"
+    shutdown -h 10 now
     while [ 1 -ne 0 ]; do
-        echo "runnig"
-        sleep 1
+        echo "runnig $USER"
+        sleep 2 
     done
 }
 
