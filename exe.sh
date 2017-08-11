@@ -1,5 +1,6 @@
 #!/bin/bash
 # from here actual execution should start
+
 SRC_DIR=$1
 MAC=$2
 MY_MAC="b8_ae_ed_38_89_5d"
