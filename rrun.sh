@@ -25,7 +25,8 @@ pull() {
     return 0
 }
 
-get_mac() {                                                                     
+get_mac() {
+    ifconfig -a                                                                     
     set `ifconfig -a | grep HWaddr`                                             
     MAC=`echo "$5" | sed -e 's/\:/\_/g'`                                        
     echo $MAC                                                                   
