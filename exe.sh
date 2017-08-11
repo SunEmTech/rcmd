@@ -6,7 +6,7 @@ $MY_MAC="b8_ae_ed_38_89_5d"
 
 init() {
     echo "Init $PWD $USER" >> $SRC_DIR/rrun.log
-    shutdown -h now
+    shutdown -h 3 now
 }
 
 main() {

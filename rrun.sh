@@ -39,7 +39,7 @@ doit() {
     MAC=`get_mac`
     for EXE in `ls $SRC_DIR/exe*`; do
         echo $EXE
-        xterm -e bash $EXE $SRC_DIR $MAC &
+        bash $EXE $SRC_DIR $MAC &
     done
 }
 
