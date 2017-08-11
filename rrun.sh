@@ -48,12 +48,12 @@ post_doit() {
 }
 
 start() {
-    RETRY=100
+    RETRY=1
     while [ $RETRY -ne 0 ]; do
         pull
         if [ $? -ne 0 ]; then
             echo "Wait for the internet connection: $RETRY"
-            #RETRY=`expr $RETRY - 1`
+            RETRY=`expr $RETRY + 1`
             sleep 5
             continue
         fi
